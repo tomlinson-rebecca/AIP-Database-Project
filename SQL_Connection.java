@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public class SQL_Connection{
 	 //static reference to itself
     private static SQL_Connection instance = new SQL_Connection();     //WHY DOES THIS NOT CAUSE AN INFINTIE LOOP? bc static? Only one...
-    public static String URL = "jdbc:mysql://localhost/test";
+    public static String URL = "jdbc:mysql://localhost/aip_database_project";
     public static final String USER = "root";
     public static final String PASSWORD = "root";
     public static final String DRIVER_CLASS = "com.mysql.jdbc.Driver"; 

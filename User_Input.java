@@ -33,8 +33,8 @@ public class User_Input {
             if(response.equals("q") || response.equals("quit")){
             	quit = true;
             	break;
-            } else if (response.toLowerCase().equals("l")){
-            	System.out.println(insertItem());
+            } else if (response.toLowerCase().equals("i")){
+            	insertItem();
             }
             
             else {
@@ -46,19 +46,28 @@ public class User_Input {
     }
 	
 	//inserts an item in the database.
-	public static String insertItem(){
-		String final_Item = "";
+	public static void insertItem(){
+		TaskItem final_Item = null;
 		String task;
+		String date;
+		String priority;
 		boolean done = false;
 		while(!done){
 			System.out.println("Task name?");
 			task = input.nextLine().trim();
+			System.out.println("Due date? YYYY-MM-DD HH:MI:SS");
+			date = input.nextLine().trim();
+			System.out.println("Priority? (low, medium, high, very high");
+			priority = input.nextLine().trim();
 			
+			final_Item = new TaskItem(task, date, priority);
+			done = true;
 		}
+		inputHandler.insertTask(final_Item);
 		
 	}
 	
-	public String lookup(String r){
+	public void lookup(String r){
 		
 	}
 	

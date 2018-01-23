@@ -15,7 +15,8 @@ import java.util.Scanner;
 
 
 public class SQL_Handle_Input {
- 
+	String database = "todoList1";
+	
     //get name from ID
     public String getName(int employeeId)  {      
         ResultSet rs = null;
@@ -23,7 +24,7 @@ public class SQL_Handle_Input {
         Statement statement = null; 
          
         String name = null;
-        String query = "SELECT * FROM beans WHERE id=" + employeeId;
+        String query = "SELECT * FROM "+database+" WHERE id=" + employeeId;
         try {           
             connection = SQL_Connection.getConnection();
             statement = connection.createStatement();
@@ -46,5 +47,34 @@ public class SQL_Handle_Input {
             }
         }
         return name;
+    }
+    
+    //inser this task into the SQL database.
+    public void insertTask(TaskItem t){
+    	 ResultSet rs = null;
+         Connection connection = null;
+         Statement statement = null; 
+          
+         String name = null;				// ID int NOT NULL AUTO_INCREMENT autoincrements ID
+         									//DATETIME datatype  YYYY-MM-DD HH:MI:SS
+         String query = "INSERT INTO "+database+"(taskName, dueDate, priority) VALUES('"+t.name+"','"+t.date+"','"+t.priority+"')";
+         //String query = "INSERT INTO "+database+" VALUES(2, 'hihi')";
+         try {           
+             connection = SQL_Connection.getConnection();
+             statement = connection.createStatement();
+             statement.executeUpdate(query);
+              
+         } catch (SQLException e) {
+             e.printStackTrace();
+         } finally {
+             if (connection != null) {
+                 try {
+                     connection.close();
+                 } catch (SQLException e) {
+                     e.printStackTrace();
+                 }
+             }
+         }
+    	
     }
 }
