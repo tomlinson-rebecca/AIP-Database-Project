@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class User_Input {
 	
-	static SQL_Handle_Input inputHandler;
+	static DB_Handle_Input inputHandler;
 	static Scanner input;
 	
 	public static void main(String[] args) {        
@@ -28,17 +28,25 @@ public class User_Input {
         while(!quit){
         	System.out.println("Enter your command: (L) or (l) for lookup. \n"+
         			"(I) or (i) for inserting a new item. \n"+
-        			"(P) or (p) to print the entire list.");
+        			"(P) or (p) to print the entire list. \n"+
+        			"(D) or (d) to delete an item from list.");
             response = input.nextLine().trim();
             if(response.equals("q") || response.equals("quit")){
             	quit = true;
             	break;
             } else if (response.toLowerCase().equals("i")){
             	insertItem();
+            } else if(response.toLowerCase().equals("p")){
+            	//ask what to sort by later
+            	inputHandler.printList();
+            } else if(response.toLowerCase().equals("d")){
+            	//ask what to sort by later
+            	deleteItem();
             }
             
+            
             else {
-            	System.out.println(inputHandler.getName(Integer.parseInt(response)));
+            	//System.out.println(inputHandler.getName(Integer.parseInt(response)));
             }
         	
         }
@@ -68,6 +76,22 @@ public class User_Input {
 	}
 	
 	public void lookup(String r){
+		
+	}
+	
+	//how to handle error? Can we check if item is in DB before deleting?
+	public static void deleteItem(){
+		String name = null;
+		boolean done = false;
+		while(!done){
+			inputHandler.printList();
+			System.out.println("Give name of task you want to remove.");
+			name = input.nextLine().trim();
+			inputHandler.removeItem(name);
+			inputHandler.printList();
+			done = true;
+		}
+		
 		
 	}
 	
