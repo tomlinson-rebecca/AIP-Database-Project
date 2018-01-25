@@ -76,7 +76,6 @@ public class SQL_Handle_Input implements DB_Handle_Input{
                  }
              }
          }
-    	
     }
 
 	@Override
@@ -104,11 +103,23 @@ public class SQL_Handle_Input implements DB_Handle_Input{
       
 	}
 		
-
-	@Override
 	public void printList() {
+		printList("1");
+	}
+
+	
+	public void printList(String sortedBy) {
+		String sorted = "";
+		if(sortedBy.equals("2")){ //sort by due date
+			sorted = " order by dueDate";
+		} 
+		if(sortedBy.equals("3")){ //sort by due date
+			sorted = " order by(case when priority='very high' then 1 when priority='high' then 2 when priority='medium' then 3"+
+					" when priority='low' then 4 end)";
+		} 
+		
 		ResultSet rs = null;
-		String query = "SELECT * FROM "+database;
+		String query = "SELECT * FROM "+database+sorted;
 		Connection connection = null;
         Statement statement = null; 
         try {           

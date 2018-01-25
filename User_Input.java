@@ -10,6 +10,8 @@
  * 
  * process new user language (sort table by X) or make them type in SQL? B-b-but MongoDB and FIrebase can't just type dat.
  */
+//TODO how to implement priority? SQL can sort by alphabetical... how can we sort by our custom type?
+//select * from todolist order by(case when priority='very high' then 1 when priority='high' then 2 end);
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -38,7 +40,8 @@ public class User_Input {
             	insertItem();
             } else if(response.toLowerCase().equals("p")){
             	//ask what to sort by later
-            	inputHandler.printList();
+            	sortChoice();
+            	
             } else if(response.toLowerCase().equals("d")){
             	//ask what to sort by later
             	deleteItem();
@@ -76,6 +79,18 @@ public class User_Input {
 	}
 	
 	public void lookup(String r){
+		
+	}
+	
+	public static void sortChoice(){
+		String sortType = null;
+		boolean done = false;
+		while(!done){
+			System.out.println("Sort the list by: (1) id, (2) due date, (3) priority");
+			sortType = input.nextLine().trim();
+			done = true;
+		}
+		inputHandler.printList(sortType);
 		
 	}
 	
