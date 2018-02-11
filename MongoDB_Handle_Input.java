@@ -3,13 +3,19 @@
  */
 import java.util.Arrays;
 
-import com.mongodb.AggregationOutput;
+import org.bson.Document;
+
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
+import com.mongodb.client.AggregateIterable;
+import com.mongodb.client.MongoCollection;
+
+
+
 
 public class MongoDB_Handle_Input implements DB_Handle_Input{
 
@@ -17,6 +23,7 @@ public class MongoDB_Handle_Input implements DB_Handle_Input{
 	private DB db;
 	private DBCollection collection;
 	
+	@SuppressWarnings("deprecation")
 	public MongoDB_Handle_Input(String colName) {
 		try {
 			 mongoClient = new MongoClient();
@@ -78,7 +85,8 @@ public class MongoDB_Handle_Input implements DB_Handle_Input{
 		  //aggregate to set priorities//TODO: Learn what aggregate does, then convert it w this. Found similar result, copy that
 		  if(sortedBy.equals("3")){
 			  
-			  /*AggregationOutput output = collection.aggregate(Arrays.asList(
+			  /*
+			  Iterable<DBObject> output = collection.aggregate(Arrays.asList(
 					  
 					  (DBObject) new BasicDBObject("$project",
 							  (DBObject) new BasicDBObject("$order",
@@ -87,20 +95,53 @@ public class MongoDB_Handle_Input implements DB_Handle_Input{
 													  (DBObject) new BasicDBObject("$eq", Arrays.asList("$priority", "very high")))
 											  .append("then", 1)
 											  .append("else", 2) ))),
-					  (DBObject) new BasicDBObject("$sort", new BasicDBObject("$order", 1))));
-				*/
-			  
+					  (DBObject) new BasicDBObject("$sort", new BasicDBObject("$order", 1)))).results();
+					  */
+			
+			MongoCollection<Document> my_collection = db.getCollection("todoList1");
+
+			  AggregateIterable<Document> output = my_collection.aggregate(Arrays.asList(
+			          new Document("$unwind", "$views"),
+			          new Document("$match", new Document("views.isActive", true)),
+			          new Document("$sort", new Document("views.date", 1)),
+			          new Document("$limit", 200),
+			          new Document("$project", new Document("_id", 0)
+			                      .append("url", "$views.url")
+			                      .append("date", "$views.date"))
+			          ));
+
+			  // Print for demo
+			  for (Document dbObject : output)
+			  {
+			      System.out.println(dbObject);
+			  }
+			 
+			  /*
+			  AggregateIterable<Document> output = collection.aggregate(Arrays.asList(
+				        new Document("$unwind", "$views"),
+				        new Document("$match", new Document("views.isActive", true)),
+				        new Document("$sort", new Document("views.date", 1)),
+				        new Document("$limit", 200),
+				        new Document("$project", new Document("_id", 0)
+				                    .append("url", "$views.url")
+				                    .append("date", "$views.date"))
+				        ));
+				
+			 
+			  /*
+			 DBObject order = (DBObject) new BasicDBObject("$order",
+					  (DBObject) new BasicDBObject("$cond",
+							  (DBObject) new BasicDBObject("$if",
+									  (DBObject) new BasicDBObject("$eq", Arrays.asList("$priority", "very high")))
+							  .append("then", 1)
+							  .append("else", 2) ));
 			  AggregationOutput output = collection.aggregate(Arrays.asList(
 					  
-					  (DBObject) new BasicDBObject("$project",
-							  (DBObject) new BasicDBObject("$order",
-									  (DBObject) new BasicDBObject("$cond",
-											  (DBObject) new BasicDBObject("$if",
-													  (DBObject) new BasicDBObject("$eq", Arrays.asList("$priority", "very high")))
-											  .append("then", 1)
-											  .append("else", 2) ))),
-					  (DBObject) new BasicDBObject("$sort", new BasicDBObject("$order", 1))));
+					  (DBObject) new BasicDBObject("$project", order
+							  ),
+					  (DBObject) new BasicDBObject("$sort", order)));
 			  System.out.println(output);
+			  */
 					  
 					  
 					  /*
