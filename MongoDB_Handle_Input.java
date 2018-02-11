@@ -90,18 +90,22 @@ public class MongoDB_Handle_Input implements DB_Handle_Input{
 			       
 			          new Document("$project", new Document("name", 1)
 			        		  	  .append("dueDate", 1)
-			                      .append("priority", 1)
-			                      /*
-			                      .append("$order", new Document("$cond", new Document("$if", 
-			                    		  new Document("$eq", Arrays.asList("$priority", "low")))
-			                    		  .append("then", 2)
-			                    	))*/
-			          )));
+			                      .append("priority", 1)   
+			                      .append("order", 
+			                    		  new Document("$cond", 
+			                    				  new Document("if", 
+						                    		  new Document("$eq", Arrays.asList("$priority", "low")))
+						                    		  .append("then", 2)
+						                    		  .append("else", 1)
+			                    	))                
+			          ),
+			          new Document("$sort", new Document("order", 1))
+			   ));
 
 			  // Print for demo
 			  for (Document Document : output)
 			  {
-			      System.out.println(Document);
+			      System.out.println("PRIORITY SORT " + Document);
 			  }
 			  
 			  /*
@@ -214,9 +218,10 @@ public class MongoDB_Handle_Input implements DB_Handle_Input{
 		                 ])
 		                 */
 		  
+		  /*
 		  while(cursor.hasNext()){
 	        	 System.out.println(cursor.next());
-	      }
+	      }*/
 		
 		
 	}
