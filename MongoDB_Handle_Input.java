@@ -84,8 +84,40 @@ public class MongoDB_Handle_Input implements DB_Handle_Input{
 		  //aggregate to set priorities//TODO: Learn what aggregate does, then convert it w this. Found similar result, copy that
 		  if(sortedBy.equals("3")){
 			  
+			  MongoCollection<Document> my_collection = db.getCollection("todoList1");
+
+			  AggregateIterable<Document> output = my_collection.aggregate(Arrays.asList(
+			       
+			          new Document("$project", new Document("name", 1)
+			        		  	  .append("dueDate", 1)
+			                      .append("priority", 1)
+			                      /*
+			                      .append("$order", new Document("$cond", new Document("$if", 
+			                    		  new Document("$eq", Arrays.asList("$priority", "low")))
+			                    		  .append("then", 2)
+			                    	))*/
+			          )));
+
+			  // Print for demo
+			  for (Document Document : output)
+			  {
+			      System.out.println(Document);
+			  }
+			  
 			  /*
-			  Iterable<Document> output = collection.aggregate(Arrays.asList(
+			  AggregateIterable<Document> output = collection.aggregate(Arrays.asList(
+				  new Document("$project", 
+						  new Document("$order", 
+								  new Document ("$cond", new Document ("$if", 
+										  new Document ("$eq", Arrays.asList("$priority", "very high")))_
+								  .append("then",1)
+								  .append("else",2 )))
+	                     
+				  
+			  ))));
+			  
+			  /*
+			  AggregateIterable<Document> output = collection.aggregate(Arrays.asList(
 					  
 					  (Document) new Document("$project",
 							  (Document) new Document("$order",
@@ -94,9 +126,15 @@ public class MongoDB_Handle_Input implements DB_Handle_Input{
 													  (Document) new Document("$eq", Arrays.asList("$priority", "very high")))
 											  .append("then", 1)
 											  .append("else", 2) ))),
-					  (Document) new Document("$sort", new Document("$order", 1)))).results();
+					  (Document) new Document("$sort", new Document("$order", 1))));
 					  */
-			
+					  /*
+			  for (Document Document : output)
+			  {
+			      System.out.println(Document);
+			  }
+		//	  System.out.println(output.first());
+			/*  
 			MongoCollection<Document> my_collection = db.getCollection("todoList1");
 
 			  AggregateIterable<Document> output = my_collection.aggregate(Arrays.asList(
