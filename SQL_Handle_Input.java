@@ -1,5 +1,6 @@
 /**
- * Parses user commands to insert/lookup in a hardcodedly selected database
+ * Parses user commands to insert/lookup in a hardcodedly selected database.
+ * TODO: Make the multiple databases for each type "sync" upon startup
  */
 
 
@@ -113,7 +114,7 @@ public class SQL_Handle_Input implements DB_Handle_Input{
 		if(sortedBy.equals("2")){ //sort by due date
 			sorted = " order by dueDate";
 		} 
-		if(sortedBy.equals("3")){ //sort by due date
+		if(sortedBy.equals("3")){ //sort by priority
 			sorted = " order by(case when priority='very high' then 1 when priority='high' then 2 when priority='medium' then 3"+
 					" when priority='low' then 4 end)";
 		} 

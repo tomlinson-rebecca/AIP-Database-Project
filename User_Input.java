@@ -10,8 +10,10 @@
  * 
  * process new user language (sort table by X) or make them type in SQL? B-b-but MongoDB and FIrebase can't just type dat.
  */
-//TODO how to implement priority? SQL can sort by alphabetical... how can we sort by our custom type?
-//select * from todolist order by(case when priority='very high' then 1 when priority='high' then 2 end);
+//TODO: allow user to create a new list
+//TODO allow for large amount of data inserted at once, file parsing etc. 
+//create table todoList1(id int NOT NULL AUTO_INCREMENT primary key, taskName VARCHAR(40) NOT NULL, dueDate DATETIME, priority VARCHAR(40));
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -25,13 +27,31 @@ public class User_Input {
         
         String response;
         boolean quit = false;
-        inputHandler = new SQL_Handle_Input();
+        boolean setDB = true;
+        
         
         while(!quit){
+        	
+        	if(setDB){ //choose which implementation to use
+        		
+        		System.out.println("(S) for SQL backend, (M) for MongoDB backend, (F) for Firebase backend.");
+        		response = input.nextLine().trim().toLowerCase();
+        		if(response.equals("s")){
+        			inputHandler = new SQL_Handle_Input();
+        		} else if (response.equals("m")){
+        			inputHandler = new MongoDB_Handle_Input("todoList1");
+        		} else {
+        			break;
+        		}
+        		
+        		setDB = false;
+        	}
+        	
         	System.out.println("Enter your command: (L) or (l) for lookup. \n"+
         			"(I) or (i) for inserting a new item. \n"+
         			"(P) or (p) to print the entire list. \n"+
-        			"(D) or (d) to delete an item from list.");
+        			"(D) or (d) to delete an item from list. \n"+
+        			"(N) or (n) to create a new list.");
             response = input.nextLine().trim();
             if(response.equals("q") || response.equals("quit")){
             	quit = true;
