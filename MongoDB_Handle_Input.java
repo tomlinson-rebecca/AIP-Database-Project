@@ -94,9 +94,26 @@ public class MongoDB_Handle_Input implements DB_Handle_Input{
 			                      .append("order", 
 			                    		  new Document("$cond", 
 			                    				  new Document("if", 
-						                    		  new Document("$eq", Arrays.asList("$priority", "low")))
-						                    		  .append("then", 2)
-						                    		  .append("else", 1)
+						                    		  new Document("$eq", Arrays.asList("$priority", "very high")))
+						                    		  .append("then", 1)
+						                    		  
+						                    		  .append("else",
+						                    				  new Document("$cond", 
+						                    						  new Document("if", 
+						                    								  new Document("$eq", Arrays.asList("$priority", "high"))))
+						                    				  				  .append("then", 2)
+						                    				  				  
+						                    				  				  .append("else",
+												                    				  new Document("$cond", 
+												                    						  new Document("if", 
+												                    								  new Document("$eq", Arrays.asList("$priority", "medium"))))
+												                    				  				  .append("then", 3)
+												                    				  				  
+												                    				  				  .append("else", 4)
+												                    		  )
+						                    				  				  
+						                    				  				  
+						                    		  )
 			                    	))                
 			          ),
 			          new Document("$sort", new Document("order", 1))
