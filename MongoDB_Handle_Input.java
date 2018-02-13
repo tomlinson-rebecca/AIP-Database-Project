@@ -77,7 +77,10 @@ public class MongoDB_Handle_Input implements DB_Handle_Input{
 		  //sort by due date
 		  if(sortedBy.equals("2")){
 			  
-			  cursor = (collection.find().sort(Sorts.orderBy(Sorts.descending("dueDate")))).iterator();
+			  cursor = (collection.find().sort(Sorts.orderBy(Sorts.ascending("dueDate")))).iterator();
+			  while(cursor.hasNext()){
+				  System.out.println(cursor.next());
+			  }
 		//	  cursor.sort(new BasicDBObject("dueDate", 1));
 		  }
 		  
@@ -125,120 +128,11 @@ public class MongoDB_Handle_Input implements DB_Handle_Input{
 			      System.out.println("PRIORITY SORT " + Document);
 			  }
 			  
-			  /*
-			  AggregateIterable<Document> output = collection.aggregate(Arrays.asList(
-				  new Document("$project", 
-						  new Document("$order", 
-								  new Document ("$cond", new Document ("$if", 
-										  new Document ("$eq", Arrays.asList("$priority", "very high")))_
-								  .append("then",1)
-								  .append("else",2 )))
-	                     
-				  
-			  ))));
-			  
-			  /*
-			  AggregateIterable<Document> output = collection.aggregate(Arrays.asList(
-					  
-					  (Document) new Document("$project",
-							  (Document) new Document("$order",
-									  (Document) new Document("$cond",
-											  (Document) new Document("$if",
-													  (Document) new Document("$eq", Arrays.asList("$priority", "very high")))
-											  .append("then", 1)
-											  .append("else", 2) ))),
-					  (Document) new Document("$sort", new Document("$order", 1))));
-					  */
-					  /*
-			  for (Document Document : output)
-			  {
-			      System.out.println(Document);
+		  } else {
+			  while(cursor.hasNext()){
+				  System.out.println(cursor.next());
 			  }
-		//	  System.out.println(output.first());
-			/*  
-			MongoCollection<Document> my_collection = db.getCollection("todoList1");
-
-			  AggregateIterable<Document> output = my_collection.aggregate(Arrays.asList(
-			          new Document("$unwind", "$views"),
-			          new Document("$match", new Document("views.isActive", true)),
-			          new Document("$sort", new Document("views.date", 1)),
-			          new Document("$limit", 200),
-			          new Document("$project", new Document("_id", 0)
-			                      .append("url", "$views.url")
-			                      .append("date", "$views.date"))
-			          ));
-
-			  // Print for demo
-			  for (Document Document : output)
-			  {
-			      System.out.println(Document);
-			  }
-			 
-			  /*
-			  AggregateIterable<Document> output = collection.aggregate(Arrays.asList(
-				        new Document("$unwind", "$views"),
-				        new Document("$match", new Document("views.isActive", true)),
-				        new Document("$sort", new Document("views.date", 1)),
-				        new Document("$limit", 200),
-				        new Document("$project", new Document("_id", 0)
-				                    .append("url", "$views.url")
-				                    .append("date", "$views.date"))
-				        ));
-				
-			 
-			  /*
-			 Document order = (Document) new Document("$order",
-					  (Document) new Document("$cond",
-							  (Document) new Document("$if",
-									  (Document) new Document("$eq", Arrays.asList("$priority", "very high")))
-							  .append("then", 1)
-							  .append("else", 2) ));
-			  AggregationOutput output = collection.aggregate(Arrays.asList(
-					  
-					  (Document) new Document("$project", order
-							  ),
-					  (Document) new Document("$sort", order)));
-			  System.out.println(output);
-			  */
-					  
-					  
-					  /*
-				        (Document) new Document("$unwind", "$views"),
-				        (Document) new Document("$match", new Document("views.isActive", true)),
-				        (Document) new Document("$sort", new Document("views.date", 1)),
-				        (Document) new Document("$limit", 200),
-				        (Document) new Document("$project", new Document("_id", 0)
-				                    .append("url", "$views.url")
-				                    .append("date", "$views.date"))
-				        )).results(); */
-
 		  }
-		  /*
-		  db.task.aggregate([
-		                     { "$project" : {
-		                         "_id" : 1,
-		                         "task" : 1,
-		                         "status" : 1,
-		                         "order" : {
-		                             "$cond" : {
-		                                 if : { "$eq" : ["$status", "new"] }, then : 1,
-		                                 else  : { "$cond" : {
-		                                     "if" : { "$eq" : ["$status", "pending"] }, then : 2, 
-		                                     else  : 3
-		                                     }
-		                                 }
-		                             }
-		                         }
-		                     } }, 
-		                     {"$sort" : {"order" : 1} },
-		                     { "$project" : { "_id" : 1, "task" : 1, "status" : 1 } }
-		                 ])
-		                 */
-		  
-		  /*
-		  while(cursor.hasNext()){
-	        	 System.out.println(cursor.next());
-	      }*/
 		
 		
 	}
