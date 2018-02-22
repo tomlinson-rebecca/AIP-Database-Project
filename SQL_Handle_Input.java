@@ -5,6 +5,7 @@
 
 
 //TODO have interface for all input handlers! Duhhhh!
+
 package default_package;
 
 import java.io.BufferedReader;

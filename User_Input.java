@@ -1,4 +1,6 @@
+
 package default_package;
+
 /**
  * Handles user input, redirecting commands to proper database. Try to have it be neutral of type,
  * so this can be a "hub" that sends commands to each database.

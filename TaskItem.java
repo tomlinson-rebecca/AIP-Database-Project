@@ -1,4 +1,6 @@
+
 package default_package;
+
 /**
  * A task item, holds all the fields that a single task in the database has, such as
  * name, date, priority, etc.

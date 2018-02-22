@@ -1,4 +1,6 @@
+
 package default_package;
+
 /**
  * Manages connecting our JDBC and java project to a MySQL database we have previously created.
  * TODO: See if you can create whole new database from the Java project, but for now,

@@ -1,4 +1,6 @@
+
 package default_package;
+
 /**
  * Each of the three database types will inherit from a handler interface to ease switching between the two.
  * @author Beaky
