@@ -37,12 +37,14 @@ public class User_Input {
         	
         	if(setDB){ //choose which implementation to use
         		
-        		System.out.println("(S) for SQL backend, (M) for MongoDB backend, (F) for Firebase backend.");
+        		System.out.println("(S) for SQL backend, (M) for MongoDB backend, (D) for DynamoDB backend.");
         		response = input.nextLine().trim().toLowerCase();
         		if(response.equals("s")){
         			inputHandler = new SQL_Handle_Input();
         		} else if (response.equals("m")){
         			inputHandler = new MongoDB_Handle_Input("todoList1");
+        		} else if(response.equals("d")){
+        			inputHandler = new DynamoDB_Handle_Input("todoList1");
         		} else {
         			break;
         		}
