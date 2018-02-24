@@ -34,7 +34,7 @@ public class DynamoDB_Connection {
             Table table = dynamoDB.createTable(tableName,
                 Arrays.asList(new KeySchemaElement("ID", KeyType.HASH), // Partition
                     new KeySchemaElement("taskName", KeyType.RANGE)), // Sort key
-                Arrays.asList(new AttributeDefinition("ID", ScalarAttributeType.S),
+                Arrays.asList(new AttributeDefinition("ID", ScalarAttributeType.N),
                     new AttributeDefinition("taskName", ScalarAttributeType.S)),
                 new ProvisionedThroughput(10L, 10L));
             table.waitForActive();
