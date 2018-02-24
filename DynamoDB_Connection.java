@@ -31,12 +31,24 @@ public class DynamoDB_Connection {
 
         try {
             System.out.println("Attempting to create table; please wait...");
+            
+            
             Table table = dynamoDB.createTable(tableName,
                 Arrays.asList(new KeySchemaElement("ID", KeyType.HASH), // Partition
                     new KeySchemaElement("taskName", KeyType.RANGE)), // Sort key
                 Arrays.asList(new AttributeDefinition("ID", ScalarAttributeType.N),
                     new AttributeDefinition("taskName", ScalarAttributeType.S)),
                 new ProvisionedThroughput(10L, 10L));
+                
+            /*
+            //table with just a primary key
+            Table table = dynamoDB.createTable(tableName,
+                    Arrays.asList(new KeySchemaElement("ID", KeyType.HASH)), // Partition
+                       
+                    Arrays.asList(new AttributeDefinition("ID", ScalarAttributeType.S)
+                        ),
+                    new ProvisionedThroughput(10L, 10L));
+                    */
             table.waitForActive();
             System.out.println("Success.  Table status: " + table.getDescription().getTableStatus());
 
