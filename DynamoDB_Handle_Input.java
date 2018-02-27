@@ -47,7 +47,7 @@ public class DynamoDB_Handle_Input implements DB_Handle_Input{
 	
 	public DynamoDB_Handle_Input(String t_name){
 		//create table
-		DynamoDB_Connection dbConn = new DynamoDB_Connection(t_name);
+		//DynamoDB_Connection dbConn = new DynamoDB_Connection(t_name);
 		
 		tableName = t_name;
 		client = AmazonDynamoDBClientBuilder.standard()
@@ -156,14 +156,20 @@ public class DynamoDB_Handle_Input implements DB_Handle_Input{
 				}
 				
 			}
-			for(int i = 0; i < elts.size(); i++){
-				System.out.println(elts.get(i));
-			}
-			
-			
-			
-			
 		}
+		
+		if (sortedBy.equals("3")){
+			java.util.Collections.sort(elts , new PriorityComparator()); 
+		}
+		
+		for(int i = 0; i < elts.size(); i++){
+			System.out.println(elts.get(i));
+		}
+			
+			
+			
+			
+		
 	}
 
 }
