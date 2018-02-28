@@ -131,30 +131,29 @@ public class DynamoDB_Handle_Input implements DB_Handle_Input{
 	        
 		ScanResult result = client.scan(scanRequest);
 		List<Map<String, AttributeValue>> elts = result.getItems();
-		/*
-		for (Map<String, AttributeValue> i : result.getItems()){
-		    System.out.println(i);
-		}*/
+	
+		String sortField = "";
 		
+		//alphabetic sorting for both ID and dueDate, choose which one
+		if(sortedBy.equals("1")){
+			sortField = "ID";
+		} else if(sortedBy.equals("2")){
+			sortField = "dueDate";
+		}
 		
-		// TODO Auto-generated method stub
-		
-		if(sortedBy.equals("2")){ //sort by duedate
+		if(sortedBy.equals("2") || sortedBy.equals("1")){ //sort by duedate
 			
 			for(int i = 0; i < elts.size()-1; i++){
 				
 				for(int j = 0; j < elts.size()-i-1; j++){
 					//compare due date strings. Lexigraphically smaller is earlier
-					if(elts.get(j).get("dueDate").toString().compareTo(elts.get(j+1).get("dueDate").toString()) > 0){
+					if(elts.get(j).get(sortField).toString().compareTo(elts.get(j+1).get(sortField).toString()) > 0){
 						Map<String, AttributeValue> tmp = elts.get(j);
 						elts.set(j, elts.get(j+1));
 						elts.set(j+1, tmp);
-						
-						
-					}
-					
+										
+					}		
 				}
-				
 			}
 		}
 		
