@@ -103,9 +103,6 @@ public class User_Input {
 		
 	}
 	
-	public void lookup(String r){
-		
-	}
 	
 	public static void sortChoice(){
 		String sortType = null;

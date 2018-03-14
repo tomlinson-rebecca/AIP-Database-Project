@@ -1,3 +1,4 @@
+//mySql command line 5.7, pw root. show databases; connect aip_....; show tables;
 /**
  * Parses user commands to insert/lookup in a hardcodedly selected database.
  * TODO: Make the multiple databases for each type "sync" upon startup
@@ -5,7 +6,7 @@
 
 
 //TODO have interface for all input handlers! Duhhhh!
-
+//
 package default_package;
 
 import java.io.BufferedReader;
@@ -21,38 +22,6 @@ import java.util.Scanner;
 
 public class SQL_Handle_Input implements DB_Handle_Input{
 	String database = "todoList1";
-	
-    //get name from ID
-    public String getName(int employeeId)  {      
-        ResultSet rs = null;
-        Connection connection = null;
-        Statement statement = null; 
-         
-        String name = null;
-        String query = "SELECT * FROM "+database+" WHERE id=" + employeeId;
-        try {           
-            connection = SQL_Connection.getConnection();
-            statement = connection.createStatement();
-            rs = statement.executeQuery(query);
-             
-            if (rs.next()) {
-               
-               name = (rs.getString("name"));
-               
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return name;
-    }
     
     //inser this task into the SQL database.
     public void insertTask(TaskItem t){ 

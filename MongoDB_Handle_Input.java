@@ -52,7 +52,6 @@ public class MongoDB_Handle_Input implements DB_Handle_Input{
                  
 		
        collection.insertOne(task);
-   //    collection.insert({"date":ISODate("2016-03-03T08:00:00.000")});
 		
 	}
 
@@ -65,13 +64,9 @@ public class MongoDB_Handle_Input implements DB_Handle_Input{
 		
 	}
 
-	
-	//List<Document> all = coll.find().toArray();
 	@Override
 	public void printList() {
 		printList("1");
-         
-		
 	}
 
 	@Override
@@ -88,7 +83,7 @@ public class MongoDB_Handle_Input implements DB_Handle_Input{
 		//	  cursor.sort(new BasicDBObject("dueDate", 1));
 		  }
 		  
-		  //aggregate to set priorities//TODO: Learn what aggregate does, then convert it w this. Found similar result, copy that
+		  //aggregate to set priorities
 		  if(sortedBy.equals("3")){
 			  
 			  MongoCollection<Document> my_collection = db.getCollection("todoList1");
