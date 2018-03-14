@@ -11,5 +11,5 @@ public interface DB_Handle_Input {
 	public void removeItem(String taskName);
 	public void printList();
 	public void printList(String sortedBy);
-	//public boolean contains(String taskName); //EXISTS?
+	
 }

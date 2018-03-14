@@ -52,11 +52,11 @@ public class User_Input {
         		setDB = false;
         	}
         	
-        	System.out.println("Enter your command: (L) or (l) for lookup. \n"+
+        	System.out.println("Enter your command: \n"+
         			"(I) or (i) for inserting a new item. \n"+
         			"(P) or (p) to print the entire list. \n"+
-        			"(D) or (d) to delete an item from list. \n"+
-        			"(N) or (n) to create a new list.");
+        			"(D) or (d) to delete an item from list. \n"
+        			);
             response = input.nextLine().trim();
             if(response.equals("q") || response.equals("quit")){
             	quit = true;

@@ -1,3 +1,4 @@
+//cmd mongod --dbpath=. in mongodata folder, then use MongoDB Compass Community to launch localhost
 
 package default_package;
 
