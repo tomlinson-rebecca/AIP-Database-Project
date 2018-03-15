@@ -124,7 +124,7 @@ public class User_Input {
 			inputHandler.printList();
 			System.out.println("Give name of task you want to remove.");
 			name = input.nextLine().trim();
-			inputHandler.removeItem(name);
+			inputHandler.removeTask(name);
 			inputHandler.printList();
 			done = true;
 		}

@@ -1,4 +1,4 @@
-
+//adaption layer interface, built to adapt the client's functionality, not the specific database's functionality.
 package default_package;
 
 /**
@@ -8,7 +8,7 @@ package default_package;
  */
 public interface DB_Handle_Input {
 	public void insertTask(TaskItem t);
-	public void removeItem(String taskName);
+	public void removeTask(String taskName);
 	public void printList();
 	public void printList(String sortedBy);
 	

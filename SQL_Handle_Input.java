@@ -51,10 +51,9 @@ public class SQL_Handle_Input implements DB_Handle_Input{
          }
     }
 
-	@Override
-	public void removeItem(String taskName) {
+	public void removeTask(String taskName) {
 		ResultSet rs = null;
-		String query = "DELETE FROM "+database+" WHERE taskName='"+taskName+"'";
+		String query = "DELETE FROM "+ database +" WHERE taskName='" + taskName + "'";
 		Connection connection = null;
         Statement statement = null; 
         try {           

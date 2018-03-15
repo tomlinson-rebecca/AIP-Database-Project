@@ -62,8 +62,7 @@ public class DynamoDB_Handle_Input implements DB_Handle_Input{
         PutItemOutcome outcome = table.putItem(item);
    	}
 
-	@Override
-	public void removeItem(String taskName) {
+	public void removeTask(String taskName) {
 		
 		// TODO Auto-generated method stub
 		ScanRequest scanRequest = new ScanRequest()

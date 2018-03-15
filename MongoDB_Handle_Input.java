@@ -49,14 +49,11 @@ public class MongoDB_Handle_Input implements DB_Handle_Input{
                 .append("name", t.name)
                 .append("dueDate",(t.date))
                 .append("priority" , t.priority);
-                 
-		
        collection.insertOne(task);
 		
 	}
 
-	@Override
-	public void removeItem(String taskName) {
+	public void removeTask(String taskName) {
 		Document query = new Document("name", taskName);
 		MongoCursor<Document> cursor = collection.find(query).iterator();
         collection.deleteOne(cursor.next());
