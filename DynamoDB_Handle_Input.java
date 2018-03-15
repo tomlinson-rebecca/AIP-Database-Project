@@ -83,10 +83,7 @@ public class DynamoDB_Handle_Input implements DB_Handle_Input{
 		//cut the formatting out, we juse want the ID number
 		String idNum = removeId.substring(4, removeId.length() - 2);
 
-		DeleteItemSpec spec = new DeleteItemSpec().withPrimaryKey("ID", idNum, "taskName", taskName);
-       // Item test = table.getItem(spec);//System.out.println(idNum);
-        
-        
+		DeleteItemSpec spec = new DeleteItemSpec().withPrimaryKey("ID", idNum, "taskName", taskName);   
 		DeleteItemOutcome outcome = table.deleteItem(spec);
 		System.out.println(outcome);
 	

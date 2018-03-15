@@ -22,12 +22,14 @@ import java.util.Scanner;
 
 public class SQL_Handle_Input implements DB_Handle_Input{
 	String database = "todoList1";
+	private Connection connection;
+	private Statement statement;
     
     //inser this task into the SQL database.
     public void insertTask(TaskItem t){ 
     	 ResultSet rs = null; //TODO must we connect to database like this every time we want to access?
-         Connection connection = null;
-         Statement statement = null; 
+         connection = null;
+         statement = null; 
           
          String name = null;				// ID int NOT NULL AUTO_INCREMENT autoincrements ID
          									//DATETIME datatype  YYYY-MM-DD HH:MI:SS
@@ -54,8 +56,8 @@ public class SQL_Handle_Input implements DB_Handle_Input{
 	public void removeTask(String taskName) {
 		ResultSet rs = null;
 		String query = "DELETE FROM "+ database +" WHERE taskName='" + taskName + "'";
-		Connection connection = null;
-        Statement statement = null; 
+		connection = null;
+        statement = null; 
         try {           
             connection = SQL_Connection.getConnection();
             statement = connection.createStatement();
@@ -92,8 +94,8 @@ public class SQL_Handle_Input implements DB_Handle_Input{
 		
 		ResultSet rs = null;
 		String query = "SELECT * FROM "+database+sorted;
-		Connection connection = null;
-        Statement statement = null; 
+		connection = null;
+        statement = null; 
         try {           
             connection = SQL_Connection.getConnection();
             statement = connection.createStatement();
